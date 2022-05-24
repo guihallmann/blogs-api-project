@@ -10,4 +10,6 @@ const loginValidation = (req, _res, next) => {
   next();
 };
 
-module.exports = loginValidation;
+module.exports = { 
+  loginValidation,
+};

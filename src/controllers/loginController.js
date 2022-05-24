@@ -7,4 +7,6 @@ const login = async (req, res) => {
   return res.status(200).json({ token });
 };
 
-module.exports = login;
+module.exports = { 
+  login, 
+};
