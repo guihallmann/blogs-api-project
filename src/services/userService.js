@@ -10,6 +10,12 @@ const create = async (displayName, email, password, image) => {
   return token;
 };
 
+const getAll = async () => {
+  const users = await User.findAll({ attributes: { exclude: ['password'] } }); /* https://sequelize.org/docs/v6/core-concepts/model-querying-basics/ */
+  return users;
+};
+
 module.exports = {
   create,
+  getAll,
 };
