@@ -16,7 +16,7 @@ const getAll = async () => {
 };
 
 const getById = async (id) => {
-  const user = await User.findOne({ where: { id } });
+  const user = await User.findOne({ where: { id }, attributes: { exclude: ['password'] } });
   if (!user) throw errorThrow(404, 'User does not exist');
   return user;
 };
