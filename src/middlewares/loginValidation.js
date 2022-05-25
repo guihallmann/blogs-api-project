@@ -2,14 +2,12 @@ const errorThrow = require('../utils/errorThrow');
 const joiLogin = require('../joi/joiLogin');
 
 const loginValidation = (req, _res, next) => {
-  const { email, password } = req.body;
-  const { error } = joiLogin.validate(email, password);
+  console.log(req.body);
+  const { error } = joiLogin.validate(req.body);
 
-  if (error) throw errorThrow('400', 'Some required fields are missing');
+  if (error) throw errorThrow(400, 'Some required fields are missing');
   
   next();
 };
 
-module.exports = { 
-  loginValidation,
-};
+module.exports = loginValidation;
