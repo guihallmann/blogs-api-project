@@ -1,9 +1,9 @@
 const { BlogPost, PostCategory, User } = require('../database/models');
 const verify = require('./categoryService');
 
-const getUserId = async (email) => {
-  const userId = User.findOne({ where: { email } });
-  return userId;
+const getUser = async (email) => {
+  const user = User.findOne({ where: { email } });
+  return user;
 };
 
 const postCategory = async (categories, postId) => {
@@ -13,11 +13,11 @@ const postCategory = async (categories, postId) => {
 
 const create = async (email, title, content, categoryIds) => {
   await verify.checkCategories(categoryIds);
-  const userId = await getUserId(email);
+  const { dataValues } = await getUser(email);
   const { id, published, updated } = await BlogPost.create({
     title,
     content,
-    userId,
+    userId: dataValues.id,
     published: new Date(),
     updated: new Date(),
   });
@@ -26,7 +26,7 @@ const create = async (email, title, content, categoryIds) => {
     id,
     title,
     content,
-    userId,
+    userId: dataValues.id,
     published,
     updated,
   };
