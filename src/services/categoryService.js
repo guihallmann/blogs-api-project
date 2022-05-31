@@ -8,6 +8,11 @@ const create = async (name) => {
   return category;
 };
 
+const checkCategories = async (categories) => {
+  const { rows } = await Category.findAndCountAll({ where: { id: categories } });
+  if (rows.length !== categories.length) throw errorThrow(400, '"categoryIds" not found');
+};
+
 const getAll = async () => {
   const categories = await Category.findAll();
   return categories;
@@ -16,4 +21,5 @@ const getAll = async () => {
 module.exports = {
   create,
   getAll,
+  checkCategories,
 };
