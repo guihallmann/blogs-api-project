@@ -6,7 +6,8 @@ const authToken = (req, _res, next) => {
   if (!token) throw errorThrow(401, 'Token not found');
   
   try {
-    verifyJWT(token);
+    const jwtPayload = verifyJWT(token);
+    req.email = jwtPayload.data;
     next();
   } catch (err) {
     throw errorThrow(401, 'Expired or invalid token');
