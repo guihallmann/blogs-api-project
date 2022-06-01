@@ -7,5 +7,6 @@ const blogPostController = require('../../controllers/blogPostController');
 const router = express.Router();
 
 router.post('/', tokenValidation, blogPostValidation, blogPostController.create);
+router.get('/', tokenValidation, blogPostController.getAll);
 
 module.exports = router;
