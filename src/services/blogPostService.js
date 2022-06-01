@@ -1,4 +1,4 @@
-const { BlogPost, PostCategory, User } = require('../database/models');
+const { BlogPost, PostCategory, User, Category } = require('../database/models');
 const verify = require('./categoryService');
 
 const getUser = async (email) => {
@@ -33,9 +33,15 @@ const create = async (email, title, content, categoryIds) => {
 };
 
 const getAll = async () => {
-  const posts = BlogPost.findAll();
+  const posts = BlogPost.findAll({
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
   return posts;
 };
+
 module.exports = {
   create,
   getAll,
