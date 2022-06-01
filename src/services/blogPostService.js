@@ -32,6 +32,11 @@ const create = async (email, title, content, categoryIds) => {
   };
 };
 
+const getAll = async () => {
+  const posts = BlogPost.findAll();
+  return posts;
+};
 module.exports = {
   create,
+  getAll,
 };
